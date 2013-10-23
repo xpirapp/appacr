@@ -52,8 +52,8 @@
 	
   function onDeviceReady() {
 	  
-	  cb = window.plugins.childBrowser;
-      alert('REady');
+	 // cb = window.plugins.childBrowser;
+      //alert('REady');
 		if (navigator.userAgent.match(/(iPad|iPhone);.*CPU.*OS 7_\d/i)) {
 			$("body").addClass("ios7");
 			$('body').append('<div id="ios7statusbar"/>');
@@ -89,7 +89,7 @@
 		   var path = strPath.substr(0,strPath.lastIndexOf('www')) + "www/"+ url;
 		   path = path.replace('file:///', '/');
 		   //window.plugins.childBrowser.showWebPage(encodeURI(path));
-			cb.showWebPage(encodeURI(path));
+			//cb.showWebPage(encodeURI(path));
 			var ref = window.open(encodeURI(path), '_blank', 'location=yes');
 		   }
 		   catch (err)
