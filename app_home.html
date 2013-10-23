@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="iso-8859-1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1.5 user-scalable=yes">
+  <title>Alfa Taliglicerase</title>
+  <link rel="stylesheet" href="lib/css/jquery.mobile-1.3.1.css">
+  <link rel="stylesheet" href="lib/css/css_login_iPad.css">
+  
+  <script src="lib/js/jquery.js"></script>
+  <script src="lib/js/jquery.mobile-1.3.1.js"></script>
+  <script src="cordova.js"></script>
+  <script src="lib/js/php.js"></script>
+  <script src="lib/js/mobile_pages/js_database.js"></script>
+  <script src="lib/js/mobile_pages/js_main.js"></script>
+  <script src="lib/js/mobile_pages/js_agenda.js"></script>
+  <script src="lib/js/mobile_pages/js_notas.js"></script>
+  
+  
+  <!--<script type="text/javascript" charset="utf-8" src="ChildBrowser.js"></script> -->
+  <script language="javascript1.1">
+  	//$( document ).on( "pageinit", function( event ) {
+	//});
+	//handleCreateDb();
+	OpenDataBase();
+	handleStateMachineMain('GetUserDataOnSqlLite');
+	
+	function reseteUl()
+	{
+		$('#pageDetalheUl').empty();
+		//$('#pageNotasUl').empty();
+			
+	}
+	
+	function handleMax()
+	{
+		cordova.exec("ChildBrowserCommand.showWebPage", "http://www.maxexperience.com.br/");
+		
+	};
+	
+	
+	
+	/*
+	function handleVideo(e)
+	{
+		handlePauseVídeo1();
+		if(e == 'video2')
+		{
+			$('#movie').attr('src', 'videos/Vide_01_Title_01.mp4');
+			//$('#movie').play();
+		}
+		$.mobile.changePage( "#page-view-video", { transition: "fade"});
+	}
+	
+	
+	function handleResetVideo()
+	{
+		
+		$('video')[1].pause();
+	}
+	
+	
+		
+		
+	function handlerEraseDb()
+	{
+		if(confirm('Clicando em OK, você estará excluindo todos os seus dados do iPad, deseja continuar?'))
+		{
+			db.transaction(handlerEraseDbTransaction, handleDbError);
+		}
+	}
+	
+	function handlePauseVídeo1()
+	{
+		$('video')[0].pause();
+	}
+	*/
+	
+  </script>
+  <style>.panel-content { padding:15px; }</style>
+  
+</head>
+<body>
+    
+    <!-- ---------------------------------- -->
+    <!-- --------------HOME---------------- -->
+    <!-- ---------------------------------- -->
+	<div data-role="page" id="home" class="baseHome" data-theme="c" >
+	
+       <!-- header -->
+       <div  data-role="header" class="ui-header" data-theme="c" data-position="fixed">
+  
+            <div style="text-align:center; line-height:3em;" >Seja bem-vindo - ACR </div>
+    	
+		</div>
+        
+        
+       <!-- Content -->
+       <div data-role="content"> 
+       		
+            <div class="baseMenu" style="padding:20px;">
+            
+            	<ul>
+                <li><a href="#sua-viagem" data-transition="pop" ><img src="images/template_ipad/img_bt_0.png" width="70%" border="0">
+                   </a>
+                </li>
+                <li><a href="#agenda" data-transition="pop" onClick="StateMachine('handleGetDadosAgendaDia');"><img src="images/template_ipad/img_bt_1.png" width="70%" border="0"></a></li>
+                <li><a href="#informacoes-importantes" data-transition="pop"><img src="images/template_ipad/img_bt_2.png" width="70%" border="0"></a></li>
+                <li><a href="#san-diego" data-transition="pop"><img src="images/template_ipad/img_bt_3.png" width="70%" border="0"></a></li>
+                <li><a href="#emergencia" data-transition="pop"><img src="images/template_ipad/img_bt_4.png" width="70%" border="0"></a></li>
+                <li><a href="#contato" data-transition="pop"><img src="images/template_ipad/img_bt_5.png" width="70%" border="0"></a></li>
+              </ul>
+                 
+            </div>
+        
+       </div>
+       
+       
+        <div  data-role="footer" class="ui-footer-fixed" data-theme="c" data-position="fixed">
+            <div style="text-align:center; line-height:3em;" > ola</div>
+		 </div>
+        
+ 	</div>
+ 	
+    
+    <!-- ---------------------------------- -->
+    <!-- --------------AGENDA-------------- -->
+    <!-- ---------------------------------- -->
+	<div data-role="page" id="agenda" class="baseHome" data-theme="c" >
+	
+       <!-- header -->
+       <div  data-role="header" class="ui-header" data-theme="c" data-position="fixed">
+            <a data-rel="back" data-icon="home">Home</a>
+            <div style="text-align:center; line-height:3em;" >Agenda</div>
+		</div>
+        
+        
+       <!-- Content -->
+       <div data-role="content">
+            <div style="border-radius:10px; padding:10px;" id="boas-vindas" >
+                 <ul data-theme="c" data-role="listview" data-inset="true" id="ulAgenda"></ul>
+            </div>
+       </div>
+ 	</div>
+    
+    <!-- ---------------------------------- -->
+    <!-- --------------AGENDA Detalhes 1-------------- -->
+    <!-- ---------------------------------- -->
+	<div data-role="page" id="agendaDetalhes1" class="baseHome" data-theme="c" >
+	
+       <!-- header -->
+       <div  data-role="header" class="ui-header" data-theme="c" data-position="fixed">
+            <a data-rel="back" data-icon="back">Voltar</a>
+            <div style="text-align:center; line-height:3em;" id="txtTitulo"></div>
+		</div>
+        
+        
+       <!-- Content -->
+       <div data-role="content">
+            <div style="border-radius:10px; padding:10px;" id="boas-vindas" >
+                 <ul data-theme="c" data-role="listview" data-inset="true" id="ulAgendaDetalhes1"></ul>
+            </div>
+       </div>
+ 	</div>
+    
+    
+    <!-- ---------------------------------- -->
+    <!-- --------------PAGE DETALHES 2------- -->
+    <!-- ---------------------------------- -->
+	<div data-role="page" id="page-detalhes" class="baseHome">
+	
+       <!-- header -->
+       <div  data-role="header" class="ui-header" data-theme="c" data-position="fixed">
+  
+            <a data-rel="back" data-icon="back" data-direction="slide" onClick="reseteUl();">voltar</a>
+            <div style="text-align:center;padding-top:5px; line-height:2em;" id="textPageDetalhe" ></div>
+    	
+		</div>
+        
+        
+       <!-- Content -->
+       <div data-role="content">
+       
+            <div style="border-radius:10px; padding:5px;" id="descricao-page-detalhes" ></div>
+            
+        	 <div>
+            	<ul data-role="listview" data-inset="true" id="pageDetalheUl"  data-theme="c"></ul>
+            </div>
+       </div>
+       
+ 	</div>
+    
+    
+    
+    <!-- ---------------------------------- -->
+    <!-- --------------Sua Viagem--------------- -->
+    <!-- ---------------------------------- -->
+	<div data-role="page" id="sua-viagem" class="baseHome">
+	
+       <!-- header -->
+       <div  data-role="header" class="ui-header" data-theme="c" data-position="fixed">
+            <a data-rel="back" data-icon="home">Home</a>
+            <div style="text-align:center; line-height:3em;" >Sua viagem</div>
+		</div>
+        
+        
+       <!-- Content -->
+       <div data-role="content" data-theme="c">
+       		Detalhes da Sua Viagem
+       </div>
+       
+ 	</div>
+    
+    
+    <!-- ---------------------------------- -->
+    <!-- --------------Informações importantes--------------- -->
+    <!-- ---------------------------------- -->
+	<div data-role="page" id="informacoes-importantes" class="baseHome">
+	
+       <!-- header -->
+       <div  data-role="header" class="ui-header" data-theme="c" data-position="fixed">
+            <a data-rel="back" data-icon="home">Home</a>
+            <div style="text-align:center; line-height:3em;" >Informações importantes</div>
+		</div>
+        
+        
+       <!-- Content -->
+       <div data-role="content" data-theme="c">
+       		Informações importantes
+            
+            Colocar CLIMA TEMPO
+       </div>
+       
+ 	</div>
+    
+    
+    
+    <!-- ---------------------------------- -->
+    <!-- --------------O que fazer em San Diego--------------- -->
+    <!-- ---------------------------------- -->
+	<div data-role="page" id="san-diego" class="baseHome">
+	
+       <!-- header -->
+       <div  data-role="header" class="ui-header" data-theme="c" data-position="fixed">
+            <a data-rel="back" data-icon="home">Home</a>
+            <div style="text-align:center; line-height:3em;" >San Diego</div>
+		</div>
+        
+        
+       <!-- Content -->
+       <div data-role="content" data-theme="c">
+       		O que fazer em San Diego
+       </div>
+       
+ 	</div>
+    
+    
+    
+    <!-- ---------------------------------- -->
+    <!-- --------------Números de emergência--------------- -->
+    <!-- ---------------------------------- -->
+	<div data-role="page" id="emergencia" class="baseHome">
+	
+       <!-- header -->
+       <div  data-role="header" class="ui-header" data-theme="c" data-position="fixed">
+            <a data-rel="back" data-icon="home">Home</a>
+            <div style="text-align:center; line-height:3em;" >Números de Emergência</div>
+		</div>
+        
+        
+       <!-- Content -->
+       <div data-role="content" data-theme="c">
+       		Números de Emergência
+       </div>
+       
+ 	</div>
+    
+    
+    
+    <!-- ---------------------------------- -->
+    <!-- --------------Contato Pfizer--------------- -->
+    <!-- ---------------------------------- -->
+	<div data-role="page" id="contato" class="baseHome">
+	
+       <!-- header -->
+       <div  data-role="header" class="ui-header" data-theme="c" data-position="fixed">
+            <a data-rel="back" data-icon="home">Home</a>
+            <div style="text-align:center; line-height:3em;" >Contato</div>
+		</div>
+        
+        
+       <!-- Content -->
+       <div data-role="content" data-theme="c">
+       		Contato Pfizer
+       </div>
+       
+ 	</div>
+    
+    
+    
+    <!-- ---------------------------------- -->
+    <!-- ---PAGE DETALHES Mini Curriculo--- -->
+    <!-- ---------------------------------- -->
+	<div data-role="page" id="page-miniCurriculo" class="baseHome" data-theme="c" >
+	
+       <!-- header -->
+       <div  data-role="header" class="ui-header" data-theme="g" data-position="fixed">
+  
+            <a data-rel="back" data-icon="delete" data-direction="right">fechar</a>
+            <div style="text-align:center;padding-top:5px; line-height:2em;" id="nomePalestrante" > </div>
+    	
+		</div>
+        
+        
+       <!-- Content -->
+       <div data-role="content" data-theme="c" >
+       		<div style="border-radius:10px; padding:5px;" id="descricao-page-detalhes-mini-curriculo" ></div>
+       </div>
+       
+ 	</div>
+    
+    
+ 	<!-- ---------------------------------- -->
+    <!-- --------------INFO XPIRAAP------------ -->
+    <!-- ---------------------------------- -->
+	<div data-role="page" data-theme="c" id="pagesobre" class="baseHome">
+		
+        <!-- HEADER -->
+    	<div data-role="header" data-theme="g" data-position="fixed">
+        <h1>Sobre</h1>
+  			<a data-rel="back" data-icon="back">voltar</a>
+		</div>
+    	<!-- /HEADER -->
+   		
+        
+    	<!-- CONTENT -->
+	  <div data-role="content" data-theme="c">
+       <div style="position:absolute; padding-left:10px; bottom:20px;">
+            <a href="#" onClick="handlerEraseDb()"><img src="images/img_icon_info.png" width="25"></a>
+        </div>
+       	<p></p>
+   		
+       		<h2 align="justify" style="padding:10px;font-size:11px;">A Max Experience foi criada em 2010 a partir da necessidade de demandas de nossos clientes e de diversas ag&ecirc;ncias de eventos por tecnologia, inova&ccedil;&atilde;o, alta qualidade e resultado.<br> <br>
+
+Um dos principais objetivos da Max Experience &eacute; proporcionar experi&ecirc;ncias marcantes a partir do entendimento das necessidades dos nossos clientes para um evento, um treinamento, na exposi&ccedil;&atilde;o do seu produto no PDV etc.<br><br>
+
+Procuramos nos concentrar no planejamento estrat&eacute;gico, uma vez que atualmente temos diversos recursos tecnol&oacute;gicos para alcan&ccedil;ar os resultados que nossos clientes precisam.<br><br>
+
+Atuamos em 3 &aacute;reas:
+ </h2>
+    
+    		<div data-role="collapsible-set" data-theme="c" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d">
+            
+            	<div data-role="collapsible">
+                <h3>Educacional:</h3>
+                <h2 align="justify" style="padding:10px;font-size:11px;">Avan&ccedil;os da neuroci&ecirc;ncia demonstraram que as emo&ccedil;&otilde;es contribuem de forma determinante para o aprendizado, especialmente no processo de aprendizado do adulto - andragogia.<br>
+    
+    Nossas propostas passam pelo entendimento do conte&uacute;do, do p&uacute;blico alvo, do momento a ser aplicado, local, entre outros fatores que podem interferir na absor&ccedil;&atilde;o da mensagem ou gerar algum ru&iacute;do que dificulte a compreens&atilde;o.<br>
+    
+    Na pr&aacute;tica, a partir deste entendimento, identificamos, desenvolvemos e implementamos o melhor recurso para alcan&ccedil;ar o seu objetivo. S&atilde;o recursos como Cinema 3D e 4D, aromatiza&ccedil;&atilde;o de ambientes, proje&ccedil;&otilde;es volum&eacute;tricas e mapeadas, jogos para SmartPhones, Tablets, Sensores de movimentos, etc.<br>
+     </h2>
+           </div>
+        
+        		<div data-role="collapsible">
+        	<h3>Motivacional:</h3>
+        	<h2 align="justify" style="padding:10px;font-size:11px;">A versatilidade com que a Max Experience trabalha, garante o sucesso que temos constatado por mais de 20 anos.<br>
+
+Recursos motivacionais aplicados em um formato l&uacute;dico e descontra&iacute;do s&atilde;o bastante utilizadas para gerar integra&ccedil;&atilde;o de pessoas, estimular a competitividade, persist&ecirc;ncia, comprometimento, sem deixar de lado a transmiss&atilde;o de mensagens chave para empresa.<br>
+
+Varia&ccedil;&otilde;es desta linha poder&atilde;o ser direcionadas para atividades recreativas como buffets ou festas corporativas.
+ </h2>
+    	</div>
+        
+        		<div data-role="collapsible">
+        	<h3>Institucional:</h3>
+        	<h2 align="justify" style="padding:10px;font-size:11px;">A solu&ccedil;&atilde;o correta para promover sua marca ou produto est&aacute; aqui. O marketing institucional costuma apresentar diversos desafios na customiza&ccedil;&atilde;o de atividades e ferramentas, devido &agrave; necessidade do enquadramento em Compliances e regras internas.<br>
+
+Mais do que oferecer uma ferramenta pronta ou customizada, buscamos sempre viabilizar suas ideias, dentro dos objetivos, normas, caracter&iacute;sticas e limita&ccedil;&otilde;es impostas pelo projeto.
+ </h2>
+    	</div>
+        
+      		</div>
+    
+      		<p style="font-size:11px;" align="center"><a href="#" id="viewmax" onClick="handleMax()">Max Experience Eventos</a></p>
+        	
+        </div>  
+        
+    </div>
+    
+  <script>
+ 
+  function onDeviceReady() {
+	  alert(parseFloat(window.device.version));
+		if (navigator.userAgent.match(/(iPad|iPhone);.*CPU.*OS 7_\d/i)) {
+			
+			$("body").addClass("ios7");
+
+			$('body').append('<div id="ios7statusbar"/>');
+
+		}
+		else
+		{
+			alert('nao');
+		}
+  }
+		document.addEventListener('deviceready', onDeviceReady, false);
+</script>
+</body>
+</html>
