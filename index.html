@@ -82,15 +82,13 @@
   }
   function handleViewPdf(url)
 	{
-		
-		//cb.showWebPage('pdf/01.pdf');
+		alert(userPdf);
 		try {
 
 		   var strPath = window.location.href;
 		   var path = strPath.substr(0,strPath.lastIndexOf('www')) + "www/"+ url;
 		   path = path.replace('file:///', '/');
-		   //window.plugins.childBrowser.showWebPage(encodeURI(path));
-			//cb.showWebPage(encodeURI(path));
+		  
 			window.open(encodeURI(path), '_blank', 'location=yes');
 		   }
 		   catch (err)
