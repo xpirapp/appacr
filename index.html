@@ -44,7 +44,8 @@
 		//cordova.exec("ChildBrowserCommand.showWebPage", "pdf/01.pdf");
 		//window.open('pdf/01.pdf', '_blank', 'location=yes');
 		// window.plugins.childBrowser.showWebPage('http://www.google.com',{ showLocationBar: true });
-		var ref = window.open('http://apache.org', '_blank', 'location=yes');
+		alert('dsds');
+		window.open('http://apache.org', '_blank', 'location=yes');
 		//cb.showWebPage(url);
 	};
 	
@@ -90,7 +91,7 @@
 		   path = path.replace('file:///', '/');
 		   //window.plugins.childBrowser.showWebPage(encodeURI(path));
 			//cb.showWebPage(encodeURI(path));
-			var ref = window.open(encodeURI(path), '_blank', 'location=yes');
+			window.open(encodeURI(path), '_blank', 'location=yes');
 		   }
 		   catch (err)
 		   {
